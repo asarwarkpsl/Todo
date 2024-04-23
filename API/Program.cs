@@ -1,4 +1,5 @@
 using Infrastructure.DBContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Writers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,5 +28,20 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+var context= services.GetRequiredService<TodoContext>();
+var logger = services.GetRequiredService<ILogger<Program>>();
+
+try
+{
+    await context.Database.MigrateAsync();
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "An error occured during migrations");
+}
 
 app.Run();
