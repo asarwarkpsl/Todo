@@ -59,7 +59,7 @@ namespace Infrastructure.DBContext
                     new Task
                     {
                         id = 2,
-                        ListId = 1,
+                        ListId = 2,
                         Title = "tincidunt ornare",
                         Description = "viverra tellus in hac habitasse",
                         Status = "Active",
@@ -72,7 +72,7 @@ namespace Infrastructure.DBContext
                 );
         }
 
-        DbSet<Task> Tasks { get; set; }
-        DbSet<List> Lists { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<List> Lists { get; set; }
     }
 }
