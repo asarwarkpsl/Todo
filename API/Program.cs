@@ -4,6 +4,7 @@ using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Task = Core.Model.Task;
 using List = Core.Model.List;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<TodoContext>(builder.Configuration.GetConnectionString("Database"), b=> b.MigrationsAssembly("API"));
 builder.Services.AddScoped(typeof(IGenericRepository<List>), typeof(GenericRepository<List>));
 builder.Services.AddScoped(typeof(IGenericRepository<Task>), typeof(GenericRepository<Task>));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 var app = builder.Build();
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

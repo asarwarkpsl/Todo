@@ -53,7 +53,7 @@ namespace Infrastructure.DBContext
                         DueDate = DateTime.Parse("28/04/2024"),                        
                         Type =  "None",
                         Timestamp = DateTime.Parse("23/04/2024 14:13"),
-                        FileURL = "File/Image.png",
+                        FileURL = "files/Image.png",
                         isEnabled =  true,
                     },
                     new Task
@@ -66,7 +66,7 @@ namespace Infrastructure.DBContext
                         DueDate = DateTime.Parse("28/04/2024"),
                         Type = "None",
                         Timestamp = DateTime.Parse("23/04/2024 14:13"),
-                        FileURL = "File/Image.png",
+                        FileURL = "files/Image.png",
                         isEnabled = true,
                     }
                 );

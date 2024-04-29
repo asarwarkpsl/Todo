@@ -1,4 +1,6 @@
-﻿using Infrastructure.Repository;
+﻿using API.DTO;
+using AutoMapper;
+using Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Task = Core.Model.Task;
 
@@ -9,17 +11,22 @@ namespace API.Controllers
     [ApiController]
     public class TasksController : ControllerBase
     {
+        private readonly IMapper _mapper;
+
         public IGenericRepository<Task> _repo { get; }
 
-        public TasksController(IGenericRepository<Task> repo)
+        public TasksController(IGenericRepository<Task> repo,IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IList<Task>> Get()
+        public async Task<IList<TaskToReturn>> Get()
         {
-            return await _repo.GetAll();
+            var item = await _repo.GetAll();
+
+            return _mapper.Map<IList<TaskToReturn>>(item);
         }
 
         [HttpPost]
@@ -43,10 +50,11 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Task> GetById(int id)
+        public async Task<TaskToReturn> GetById(int id)
         {
             var item = await _repo.Get(id);
-            return item;
+
+            return _mapper.Map<TaskToReturn>(item);
         }
 
         [HttpDelete]

@@ -1,4 +1,6 @@
-﻿using Core.Specification;
+﻿using API.DTO;
+using AutoMapper;
+using Core.Specification;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using List = Core.Model.List;
@@ -8,19 +10,24 @@ namespace API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ListsController : ControllerBase
-    { 
+    {
+        private readonly IMapper _mapper;
+
         public IGenericRepository<List> _repo { get; }
 
-        public ListsController(IGenericRepository<List> repo)
+        public ListsController(IGenericRepository<List> repo,IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<List>> Get()
+        public async Task<IReadOnlyList<ListToReturn>> Get()
         {
             ListsWithTasksSpecification listsWithTasksSpecification = new ListsWithTasksSpecification();
-            return await _repo.ListAsync(listsWithTasksSpecification);
+            var items = await _repo.ListAsync(listsWithTasksSpecification);
+
+            return _mapper.Map<IReadOnlyList<ListToReturn>>(items);
         }
 
         [HttpPost]
@@ -43,13 +50,14 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<List> GetById(int id)
+        public async Task<ListToReturn> GetById(int id)
         {
             ListsWithTasksSpecification listsWithTasksSpecification = new();
             listsWithTasksSpecification.AddCriteria(id);
 
             var item = await _repo.GetEnityWithSpec(listsWithTasksSpecification);
-            return item;
+
+            return _mapper.Map<ListToReturn>(item);
         }
 
         [HttpDelete]

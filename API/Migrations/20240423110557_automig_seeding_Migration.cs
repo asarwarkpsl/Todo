@@ -33,8 +33,8 @@ namespace API.Migrations
                 columns: new[] { "id", "Description", "DueDate", "FileURL", "ListId", "NextRemindDate", "Status", "Timestamp", "Title", "Type", "isEnabled" },
                 values: new object[,]
                 {
-                    { 1, "viverra tellus in hac habitasse", new DateTime(2024, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "File/Image.png", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Active", new DateTime(2024, 4, 23, 14, 13, 0, 0, DateTimeKind.Unspecified), "tincidunt ornare", "None", true },
-                    { 2, "viverra tellus in hac habitasse", new DateTime(2024, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "File/Image.png", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Active", new DateTime(2024, 4, 23, 14, 13, 0, 0, DateTimeKind.Unspecified), "tincidunt ornare", "None", true }
+                    { 1, "viverra tellus in hac habitasse", new DateTime(2024, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "files/Image.png", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Active", new DateTime(2024, 4, 23, 14, 13, 0, 0, DateTimeKind.Unspecified), "tincidunt ornare", "None", true },
+                    { 2, "viverra tellus in hac habitasse", new DateTime(2024, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "files/Image.png", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Active", new DateTime(2024, 4, 23, 14, 13, 0, 0, DateTimeKind.Unspecified), "tincidunt ornare", "None", true }
                 });
         }
 
