@@ -3,6 +3,7 @@ using Infrastructure.DBContext;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Task = Core.Model.Task;
+using List = Core.Model.List;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSqlite<TodoContext>(builder.Configuration.GetConnectionString("Database"), b=> b.MigrationsAssembly("API"));
-builder.Services.AddScoped<IGenericRepository<List>, ListRepository>();
-builder.Services.AddScoped<IGenericRepository<Task>, TaskRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<List>), typeof(GenericRepository<List>));
+builder.Services.AddScoped(typeof(IGenericRepository<Task>), typeof(GenericRepository<Task>));
+
 
 var app = builder.Build();
 

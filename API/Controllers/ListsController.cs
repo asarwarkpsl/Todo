@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repository;
+﻿using Core.Specification;
+using Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using List = Core.Model.List;
 
@@ -16,9 +17,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IList<List>> Get() 
+        public async Task<IReadOnlyList<List>> Get()
         {
-            return await _repo.GetAll();
+            ListsWithTasksSpecification listsWithTasksSpecification = new ListsWithTasksSpecification();
+            return await _repo.ListAsync(listsWithTasksSpecification);
         }
 
         [HttpPost]
@@ -43,7 +45,10 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<List> GetById(int id)
         {
-            var item = await _repo.Get(id);
+            ListsWithTasksSpecification listsWithTasksSpecification = new();
+            listsWithTasksSpecification.AddCriteria(id);
+
+            var item = await _repo.GetEnityWithSpec(listsWithTasksSpecification);
             return item;
         }
 
